@@ -1,0 +1,44 @@
+@host = https://localhost:7199
+@token = PASTE_JWT_HERE
+
+### Register a normal user
+POST {{host}}/api/auth/register
+Content-Type: application/json
+
+{
+  "fullName": "Khalil User",
+  "email": "user@example.com",
+  "password": "User123!"
+}
+
+### Login
+POST {{host}}/api/auth/login
+Content-Type: application/json
+
+{
+  "email": "user@example.com",
+  "password": "User123!"
+}
+
+### Current profile (requires auth once Step 5 is done)
+GET {{host}}/api/auth/me
+Authorization: Bearer {{token}}
+
+### All products: currently public, will require auth after Step 5
+GET {{host}}/api/products
+Authorization: Bearer {{token}}
+
+### Create a product: currently blocked until auth is wired (Step 4/5), Admin only afterwards
+POST {{host}}/api/products
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "name": "Mechanical keyboard",
+  "price": 99.90,
+  "stock": 12
+}
+
+### Users: currently public, Admin only after Step 5
+GET {{host}}/api/admin/users
+Authorization: Bearer {{token}}
