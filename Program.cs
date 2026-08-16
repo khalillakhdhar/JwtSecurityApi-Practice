@@ -2,7 +2,8 @@ using System.Reflection;
 using JwtSecurityApi.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
-
+using JwtSecurityApi.Models;
+using Microsoft.AspNetCore.Identity;
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
@@ -30,6 +31,7 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 // TODO (README.md Step 5): builder.Services.AddAuthentication(...).AddJwtBearer(...);
 //      and builder.Services.AddAuthorization(options => { ... AdminOnly policy ... });
 // ---------------------------------------------------------------------------
+builder.Services.AddScoped<IPasswordHasher<AppUser>, PasswordHasher<AppUser>>();
 
 builder.Services.AddSwaggerGen(options =>
 {
